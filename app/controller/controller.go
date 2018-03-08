@@ -9,7 +9,7 @@ func IndexList(c *gin.Context) {
 	cronService := service.NewCronService()
 	c.JSON(200, gin.H{
 		"message": cronService.FetchListCronsPagination(1),
-		"one":     cronService.FetchCronById(0),
+		"one":     cronService.FetchCronById(1),
 		"ids":     cronService.FetchListCrons(),
 	})
 }

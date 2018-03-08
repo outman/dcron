@@ -1,3 +1,4 @@
 vendor/*
 !vendor/vendor.json
 logs/*.log
+.DS_Store

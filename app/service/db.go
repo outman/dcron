@@ -22,7 +22,7 @@ func FetchDbConnection() *gorm.DB {
 	if err != nil {
 		panic(err)
 	}
-	conn.LogMode(false)
+	conn.LogMode(true)
 	return conn
 }
 
@@ -42,7 +42,7 @@ func (service *cronService) FetchListCronsPagination(page uint) pagination {
 
 	var crons []CronModel
 	offset := (page - 1) * pageSize
-	conn.Offset(offset).Limit(pageSize).Find(&crons)
+	conn.Order("`delete` asc, `create_at` desc").Offset(offset).Limit(pageSize).Find(&crons)
 
 	return pagination{Page: page, Total: total, PageSize: pageSize, Data: crons}
 }
