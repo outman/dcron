@@ -2,7 +2,7 @@
 
 Web crontab based on Golang. (Just for study, don't use it on production env.)
 
-### Desp
+### Deps
 
 govendor list
 
@@ -35,4 +35,6 @@ func main() {
 	}
 }
 ```
+### LICENSE
 
+MIT
