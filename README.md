@@ -8,6 +8,7 @@ govendor list
 
 ### Config
 - conf/conf.yaml  db & hosts
+- MySQL database=dcron   source ./resource/dcron_2018-03-09.sql
 
 ### Usage
 
