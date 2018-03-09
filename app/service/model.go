@@ -10,7 +10,7 @@ type CronModel struct {
 	Delete     uint8 `gorm:"not null;default:0"`
 	Overleap   uint8 `gorm:"not null;default:0"`
 
-	Hostname string `gorm:"size:500;not null;default:''"`
+	Hostname string `gorm:"size:100;not null;default:''"`
 	Expr     string `gorm:"size:200;not null;default:''"`
 	Shell    string `gorm:"size:4000;not null;default:''"`
 	Comment  string `gorm:"size:500;not null;default:''"`

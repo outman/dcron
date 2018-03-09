@@ -23,9 +23,7 @@ func RunServer(host string, port string) {
 	indexGroup := router.Group("/index")
 	indexGroup.GET("/", controller.IndexList)
 	indexGroup.GET("/view/:id", controller.IndexView)
-	indexGroup.GET("/log/:id", controller.IndexLog)
 	indexGroup.POST("/create", controller.IndexCreate)
-	indexGroup.POST("/update", controller.IndexEdit)
 	indexGroup.POST("/delete", controller.IndexDelete)
 
 	router.Run(host + ":" + port)

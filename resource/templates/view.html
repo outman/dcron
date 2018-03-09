@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DCron</title>
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+</head>
+<body>
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+    <h5 class="my-0 mr-md-auto font-weight-normal">DCron</h5>
+    <nav class="my-2 my-md-0 mr-md-3">
+        <a class="p-2 text-dark" href="/">Back</a>
+    </nav>
+</div>
+<div class="contaner">
+    <div class="row" style="padding: 1rem 4rem">
+    <h5>Detail</h5>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>#ID</th>
+            <td>{{ .Data.Id }}</td>
+        </tr>
+        <tr>
+            <th>Host</th>
+            <td>{{ .Data.Hostname }}</td>
+        </tr>
+        <tr>
+            <th>Interval</th>
+            <td>{{ .Data.Expr }}</td>
+        </tr>
+        <tr>
+            <th>Shell</th>
+            <td>{{ .Data.Shell }}</td>
+        </tr>
+        <tr>
+            <th>Contact</th>
+            <td>{{ .Data.Contact }}</td>
+        </tr>
+        <tr>
+            <th>Status</th>
+            <td>{{ if eq .Data.Delete 1 }} x {{ else }} √ {{ end }}</td>
+        </tr>
+        <tr>
+            <th>CreateAt</th>
+            <td>{{ .Data.CreateAt }}</td>
+        </tr>
+        <tr>
+            <th>UpdateAt</th>
+            <td>{{ .Data.UpdateAt }}</td>
+        </tr>
+        <tr>
+            <th>Comment</th>
+            <td>{{ .Data.Comment }}</td>
+        </tr>
+        </thead>
+    </table>
+    <form action="/index/delete" method="POST">
+        <input type="hidden" name="{{ .Data.Id }}">
+        <button class="btn btn-danger">Delete</button>
+    </form>
+    </div>
+    <div class="row" style="padding: 1rem 4rem">
+    <h5>Logs 1000</h5>
+    <table class="table table-bordered">
+        <tr>
+            <th>Status</th>
+            <th>Create At</th>
+            <th>Exec Result</th>
+        </tr>
+        {{ range $index, $value := .Logs.Data }}
+        <tr>
+            {{ if eq $value.Code 0 }}
+            <td>ok</td>
+            {{ else }}
+            <td>error</td>
+            {{ end }}
+            <td>{{ $value.CreateAt }}</td>
+            <td><pre>{{ $value.Result }}</pre></td>
+        </tr>
+        {{ else }}
+        <tr>
+            <td colspan="99" class="text-center"> empty. </td>
+        </tr>
+        {{ end  }}
+    </table>
+</div>
+</div>
+</body>
+</html>

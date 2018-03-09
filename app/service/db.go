@@ -6,7 +6,7 @@ import (
 )
 
 const (
-	pageSize = 50
+	pageSize = 1000
 )
 
 type pagination struct {
@@ -42,7 +42,7 @@ func (service *cronService) FetchListCronsPagination(page uint) pagination {
 
 	var crons []CronModel
 	offset := (page - 1) * pageSize
-	conn.Order("`delete` asc, `create_at` desc").Offset(offset).Limit(pageSize).Find(&crons)
+	conn.Order("`hostname` asc, `delete` asc, `id` desc").Offset(offset).Limit(pageSize).Find(&crons)
 
 	return pagination{Page: page, Total: total, PageSize: pageSize, Data: crons}
 }
@@ -80,16 +80,16 @@ func (service *cronExecLogService) CreateCronExecLogModel(logModel *CronExecLogM
 	conn.Create(&logModel)
 }
 
-func (service *cronExecLogService) FetchListCronExecLogPagination(page uint) pagination {
+func (service *cronExecLogService) FetchListCronExecLogPagination(cronId int, page uint) pagination {
 	conn := FetchDbConnection()
 	defer conn.Close()
 
 	total := 0
-	conn.Model(&CronExecLogModel{}).Count(&total)
+	conn.Where("cron_id = ?", cronId).Model(&CronExecLogModel{}).Count(&total)
 
 	var cronExecLogs []CronExecLogModel
 	offset := (page - 1) * pageSize
-	conn.Offset(offset).Limit(pageSize).Find(&cronExecLogs)
+	conn.Where("cron_id = ?", cronId).Order("id desc").Offset(offset).Limit(pageSize).Find(&cronExecLogs)
 
 	return pagination{Page: page, Total: total, PageSize: pageSize, Data: cronExecLogs}
 }
