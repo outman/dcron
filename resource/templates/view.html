@@ -58,7 +58,7 @@
         </thead>
     </table>
     <form action="/index/delete" method="POST">
-        <input type="hidden" name="{{ .Data.Id }}">
+        <input type="hidden" name="id" value="{{ .Data.Id }}">
         <button class="btn btn-danger">Delete</button>
     </form>
     </div>

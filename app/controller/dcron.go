@@ -1,9 +1,11 @@
 package controller
 
 import (
+	"bytes"
 	"crypto/md5"
 	"fmt"
 	"io"
+	"os"
 	"os/exec"
 	"strconv"
 
@@ -55,6 +57,18 @@ func (d *dcron) dcronHashCronModel(cm service.CronModel) string {
 // Processing db crons to Cron service
 func (d *dcron) dcronProcessing(cm service.CronModel) {
 	hashCode := d.dcronHashCronModel(cm)
+	hn, oerr := os.Hostname()
+	if oerr != nil {
+		return
+	}
+
+	hnbytes := bytes.ToLower([]byte(hn))
+	cmhnBytes := bytes.ToLower([]byte(cm.Hostname))
+
+	if bytes.Compare(hnbytes, cmhnBytes) != 0 {
+		return
+	}
+
 	if val, ok := d.dcronCurrentCronMapEntry[hashCode]; ok {
 		if cm.Delete == 1 {
 			for eid, _ := range val {

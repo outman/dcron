@@ -47,6 +47,20 @@ func (service *cronService) FetchListCronsPagination(page uint) pagination {
 	return pagination{Page: page, Total: total, PageSize: pageSize, Data: crons}
 }
 
+func (service *cronService) CreateCron(cron CronModel) uint {
+	conn := FetchDbConnection()
+	defer conn.Close()
+	conn.Create(&cron)
+	return cron.Id
+}
+
+func (service *cronService) DeleteCronById(cron CronModel) {
+	conn := FetchDbConnection()
+	defer conn.Close()
+	conn.Model(&cron).UpdateColumn("delete", 1)
+	return
+}
+
 func (service *cronService) FetchListCrons() []int {
 	conn := FetchDbConnection()
 	defer conn.Close()

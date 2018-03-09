@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DCron</title>
+    <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+</head>
+<body>
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+    <h5 class="my-0 mr-md-auto font-weight-normal">DCron</h5>
+    <nav class="my-2 my-md-0 mr-md-3">
+        <a class="p-2 text-dark" href="/">Back</a>
+    </nav>
+</div>
+<div class="contaner">
+<div class="row" style="padding: 1rem 4rem">
+<form class="col-5" action="/index/create" method="POST">
+<h5>New</h5>
+<div class="form-group">
+    <label for="hostname">Hostname</label>
+    <select name="hostname" id="hostname" class="form-control">
+        {{ range $index, $value := .Hosts }}
+        <option value="{{ $value }}">{{ $value }}</option>
+        {{ end }}
+    </select>
+</div>
+<div class="form-group">
+    <label for="interval">Interval</label>
+    <input type="text" class="form-control" name="expr" placeholder="@every 1h">
+</div>
+
+<div class="form-group">
+    <label for="shell">Shell</label>
+    <input type="text" class="form-control" name="shell" placeholder="php test.php">
+</div>
+
+<div class="form-group">
+    <label for="contact">Contact</label>
+    <input type="text" class="form-control" name="contact" placeholder="somebody@example.com">
+</div>
+
+<div class="form-group">
+    <label for="comment">Comment</label>
+    <textarea name="comment" class="form-control"></textarea>
+</div>
+<button type="submit" class="btn btn-primary">Create</button>
+</form>
+</div>
+</div>
+</body>
+</html>
