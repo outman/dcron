@@ -40,13 +40,13 @@ func main() {
 ### SCREEN
 
 List
-[list](resource/images/1.png)
+![List](resource/images/1.png)
 
 View
-[veiw](resource/images/2.png)
+![Veiw](resource/images/2.png)
 
 New
-[new](resource/images/3.png)
+![New](resource/images/3.png)
 
 ### LICENSE
 
